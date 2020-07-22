@@ -9,6 +9,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
+    tty: true
 
   micro-frontend-home-page:
     container_name: micro-frontend-home-page

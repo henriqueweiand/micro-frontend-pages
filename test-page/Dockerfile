@@ -1,15 +1,8 @@
-FROM node:12-slim
-RUN apt-get update
-RUN apt-get install --assume-yes git
+FROM node:13.12.0-alpine
 
 COPY package.json .
-COPY package-lock.json .
-COPY yarn.lock .
 
-ENV NODE_ENV=production
-
-RUN npm install pm2 -g
-RUN npm install -g serve
+ENV CI=true
 
 RUN npm i -s --no-progress && \
     mkdir /app && \
@@ -19,6 +12,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN yarn install --production=false && yarn build
+RUN npm install --production=false
 
-CMD [ "yarn", "start" ]
+CMD [ "npm", "start" ]
