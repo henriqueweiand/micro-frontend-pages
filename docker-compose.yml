@@ -1,6 +1,16 @@
 version: "2"
 
 services:
+  micro-frontend-hen-page:
+    container_name: micro-frontend-hen-page
+    build: hen-page
+    networks:
+      - local-network
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    tty: true
+
   micro-frontend-test-page:
     container_name: micro-frontend-test-page
     build: test-page
@@ -32,8 +42,10 @@ services:
     ports:
       - "8888:80"
     links:
+      - micro-frontend-hen-page
       - micro-frontend-test-page
     depends_on:
+      - micro-frontend-hen-page
       - micro-frontend-test-page
       - micro-frontend-home-page
 
